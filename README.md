@@ -1,89 +1,150 @@
-# Log Analyzer with Tests and CI
 
-A Python command-line tool that analyzes log files, counts INFO/WARNING/ERROR entries, identifies malformed lines, and prints a summary report.
+# Python Log Analyzer
+
+A command-line tool for analyzing application and server log files.
+
+The tool identifies log levels, detects malformed entries, filters
+messages by severity, and exports analysis reports as JSON.
+
+## Features
+
+- Analyze one or multiple log files.
+- Count INFO, WARNING, and ERROR messages.
+- Filter messages by minimum severity level.
+- Detect malformed log entries.
+- Export reports to JSON.
+- Diagnostic logging with Python's logging module.
+- Automated tests using pytest.
+- Test coverage using pytest-cov.
+- Continuous Integration using GitHub Actions.
+
+## Project Structure
+
+```text
+log-analyzer/
+│
+├── .github/
+│   └── workflows/
+│       └── tests.yml
+│
+├── logs/
+│   ├── server.log
+│   └── application.log
+│
+├── reports/
+│
+├── log_analyzer.py
+├── test_log_analyzer.py
+├── requirements.txt
+├── README.md
+└── .gitignore
+```
 
 ## Requirements
 
-- Python 3.10+
+- Python 3.10 or newer
 - pip
 
-## Open in Visual Studio Code
+## Installation
 
-1. Extract or clone this repository.
-2. Open the `log-analyzer` folder in Visual Studio Code.
-3. Open the integrated terminal (**Terminal → New Terminal**).
-4. Create and activate a virtual environment (optional but recommended):
-
-   **Windows PowerShell**
-   ```powershell
-   python -m venv .venv
-   .\.venv\Scripts\Activate.ps1
-   ```
-
-   **Windows Command Prompt**
-   ```bat
-   python -m venv .venv
-   .venv\Scripts\activate.bat
-   ```
-
-   **macOS/Linux**
-   ```bash
-   python3 -m venv .venv
-   source .venv/bin/activate
-   ```
-
-5. Install dependencies:
-   ```bash
-   python -m pip install -r requirements.txt
-   ```
-
-## Run the analyzer
+Clone the repository:
 
 ```bash
-python log_analyzer.py server.log
+git clone <https://github.com/Moumel/log-analyzer>
+cd log-analyzer
 ```
 
-## Example output
-
-```text
-Log Analysis Report
-------------------
-Total lines: 5
-INFO: 2
-WARNING: 1
-ERROR: 2
-Broken lines: 0
-
-Errors:
-- Line 3: Connection failed
-- Line 5: Database unavailable
-
-Warnings:
-- Line 2: Disk space low
-```
-
-## Run tests
+Create a virtual environment:
 
 ```bash
-pytest -v
+py -m venv .venv
 ```
 
-## GitHub Actions
+Activate it on Windows PowerShell:
 
-The workflow in `.github/workflows/tests.yml` runs pytest on every push and pull request.
-
-## Log format
-
-Each non-empty line should follow this format:
-
-```text
-YYYY-MM-DD HH:MM:SS LEVEL message
+```powershell
+.venv\Scripts\Activate.ps1
 ```
 
-Supported levels: `INFO`, `WARNING`, `ERROR`.
+Install dependencies:
 
-Malformed lines and unsupported levels are listed as broken lines. Blank lines are ignored.
+```bash
+py -m pip install -r requirements.txt
+```
+
+## Usage
+
+Analyze a single log file:
+
+```bash
+py log_analyzer.py server.log
+```
+
+Analyze multiple log files:
+
+```bash
+py log_analyzer.py server.log application.log
+```
+
+Show only errors:
+
+```bash
+py log_analyzer.py server.log --level ERROR
+```
+
+Show warnings and errors:
+
+```bash
+py log_analyzer.py server.log --level WARNING
+```
+
+Export the report as JSON:
+
+```bash
+py log_analyzer.py server.log --output reports/report.json
+```
+
+Enable detailed diagnostic logging:
+
+```bash
+py log_analyzer.py server.log --verbose
+```
+
+## Testing
+
+Run the automated test suite:
+
+```bash
+py -m pytest -v
+```
+
+Run tests with coverage:
+
+```bash
+py -m pytest -v --cov=log_analyzer --cov-report=term-missing
+```
 
 ## Technologies
 
-Python, pytest, Git, GitHub Actions.
+- Python
+- argparse
+- logging
+- JSON
+- pathlib
+- pytest
+- pytest-cov
+- GitHub Actions
+- Git
+
+## Learning Objectives
+
+This project demonstrates practical experience with:
+
+- Python scripting and automation.
+- Command-line application development.
+- Log analysis and troubleshooting.
+- File handling and JSON reporting.
+- Exception handling.
+- Unit testing.
+- Test coverage.
+- Continuous Integration.
