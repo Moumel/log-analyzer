@@ -1,44 +1,21 @@
-
 # Python Log Analyzer
+
+![Tests](https://github.com/Moumel/log-analyzer/actions/workflows/tests.yml/badge.svg)
 
 A command-line tool for analyzing application and server log files.
 
-The tool identifies log levels, detects malformed entries, filters
-messages by severity, and exports analysis reports as JSON.
+It counts log levels, detects malformed entries, filters messages by severity, and exports analysis reports as JSON.
 
 ## Features
 
-- Analyze one or multiple log files.
+- Analyze one or multiple log files in a single run.
 - Count INFO, WARNING, and ERROR messages.
 - Filter messages by minimum severity level.
 - Detect malformed log entries.
 - Export reports to JSON.
-- Diagnostic logging with Python's logging module.
-- Automated tests using pytest.
-- Test coverage using pytest-cov.
-- Continuous Integration using GitHub Actions.
-
-## Project Structure
-
-```text
-log-analyzer/
-│
-├── .github/
-│   └── workflows/
-│       └── tests.yml
-│
-├── logs/
-│   ├── server.log
-│   └── application.log
-│
-├── reports/
-│
-├── log_analyzer.py
-├── test_log_analyzer.py
-├── requirements.txt
-├── README.md
-└── .gitignore
-```
+- Diagnostic logging with Python's `logging` module.
+- Automated tests with pytest. Test coverage: **XX%** (update this number).
+- Continuous Integration with GitHub Actions.
 
 ## Requirements
 
@@ -50,64 +27,100 @@ log-analyzer/
 Clone the repository:
 
 ```bash
-git clone <https://github.com/Moumel/log-analyzer>
+git clone https://github.com/Moumel/log-analyzer.git
 cd log-analyzer
 ```
 
-Create a virtual environment:
+Create and activate a virtual environment.
 
-```bash
-py -m venv .venv
-```
-
-Activate it on Windows PowerShell:
+Windows (PowerShell):
 
 ```powershell
+py -m venv .venv
 .venv\Scripts\Activate.ps1
+```
+
+Linux / macOS:
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
 ```
 
 Install dependencies:
 
 ```bash
-py -m pip install -r requirements.txt
+python -m pip install -r requirements.txt
 ```
 
+## Log Format
+
+The analyzer expects one entry per line:
+
+```text
+2026-11-07 12:00:01 ERROR Database connection failed
+```
+
+Format: `YYYY-MM-DD HH:MM:SS LEVEL message`, where LEVEL is `INFO`, `WARNING`, or `ERROR`.
+
+A line is counted as **malformed** if it has no valid timestamp or no valid level. Malformed lines are reported separately and do not stop the analysis.
+
 ## Usage
+
+On Windows, use `py` instead of `python`.
 
 Analyze a single log file:
 
 ```bash
-py log_analyzer.py server.log
+python log_analyzer.py logs/server.log
 ```
 
 Analyze multiple log files:
 
 ```bash
-py log_analyzer.py server.log application.log
+python log_analyzer.py logs/server.log logs/application.log
 ```
 
 Show only errors:
 
 ```bash
-py log_analyzer.py server.log --level ERROR
+python log_analyzer.py logs/server.log --level ERROR
 ```
 
 Show warnings and errors:
 
 ```bash
-py log_analyzer.py server.log --level WARNING
+python log_analyzer.py logs/server.log --level WARNING
 ```
 
 Export the report as JSON:
 
 ```bash
-py log_analyzer.py server.log --output reports/report.json
+python log_analyzer.py logs/server.log --output reports/report.json
 ```
 
 Enable detailed diagnostic logging:
 
 ```bash
-py log_analyzer.py server.log --verbose
+python log_analyzer.py logs/server.log --verbose
+```
+
+### Example output
+
+Replace this block with the real output of your tool:
+
+```text
+(paste the output of: python log_analyzer.py logs/server.log)
+```
+
+### Example JSON report
+
+Replace this block with the first lines of a real `reports/report.json`:
+
+```json
+{
+  "paste": "a real report here"
+}
 ```
 
 ## Testing
@@ -115,36 +128,29 @@ py log_analyzer.py server.log --verbose
 Run the automated test suite:
 
 ```bash
-py -m pytest -v
+python -m pytest -v
 ```
 
 Run tests with coverage:
 
 ```bash
-py -m pytest -v --cov=log_analyzer --cov-report=term-missing
+python -m pytest -v --cov=log_analyzer --cov-report=term-missing
 ```
 
-## Technologies
+## Project Structure
 
-- Python
-- argparse
-- logging
-- JSON
-- pathlib
-- pytest
-- pytest-cov
-- GitHub Actions
-- Git
+```text
+log-analyzer/
+├── .github/workflows/tests.yml
+├── logs/
+│   ├── server.log
+│   └── application.log
+├── reports/
+├── log_analyzer.py
+├── test_log_analyzer.py
+├── requirements.txt
+├── README.md
+└── .gitignore
+```
 
-## Learning Objectives
-
-This project demonstrates practical experience with:
-
-- Python scripting and automation.
-- Command-line application development.
-- Log analysis and troubleshooting.
-- File handling and JSON reporting.
-- Exception handling.
-- Unit testing.
-- Test coverage.
-- Continuous Integration.
+Built with Python, argparse, logging, pathlib, pytest, pytest-cov, and GitHub Actions.
