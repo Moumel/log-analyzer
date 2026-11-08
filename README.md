@@ -105,24 +105,6 @@ Enable detailed diagnostic logging:
 python log_analyzer.py logs/server.log --verbose
 ```
 
-### Example output
-
-Replace this block with the real output of your tool:
-
-```text
-(paste the output of: python log_analyzer.py logs/server.log)
-```
-
-### Example JSON report
-
-Replace this block with the first lines of a real `reports/report.json`:
-
-```json
-{
-  "paste": "a real report here"
-}
-```
-
 ## Testing
 
 Run the automated test suite:
